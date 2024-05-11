@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Días hasta el Día de Arequipa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cuenta regresiva para el Día de Arequipa</h1>
+    <div id="output"></div>
+
+    <script>
+        function calcularDiasHastaAQP() {
+            const fechaActual = new Date();
+            const fechaAQP = new Date('2024-08-15');
+            
+            const diferenciaTiempo = fechaAQP - fechaActual;
+            const diasRestantes = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
+            
+            return diasRestantes;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const diasHastaAQP = calcularDiasHastaAQP();
+            document.getElementById('output').textContent = `Faltan ${diasHastaAQP} días para el Día de Arequipa`;
+        });
+    </script>
+</body>
+</html>
