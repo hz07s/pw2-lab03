@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extraer Código de Google Meet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            display: inline-block;
+            word-break: break-all;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Extraer Código de Google Meet</h1>
+    <form id="meetForm">
+        <label for="meetUrl">Ingresa el URL de Google Meet:</label>
+        <br>
+        <input type="text" id="meetUrl" placeholder="https://meet.google.com/abc-defg-hij" required>
+        <br><br>
+        <button type="submit">Obtener Código</button>
+    </form>
+    <div id="output"></div>
+
+    <script>
+        function extraerCodigoMeet(url) {
+            const regex = /meet\.google\.com\/([a-z]{3})-([a-z]{4})-([a-z]{3})/;
+            const match = url.match(regex);
+            if (match) {
+                return match[1] + match[2] + match[3];
+            } else {
+                return 'URL no válido';
+            }
+        }
+
+        document.getElementById('meetForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const meetUrl = document.getElementById('meetUrl').value;
+            const codigo = extraerCodigoMeet(meetUrl);
+            document.getElementById('output').textContent = codigo;
+        });
+    </script>
+</body>
+</html>
