@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Valores Dinámica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            display: inline-block;
+        }
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabla de Valores Dinámica</h1>
+    <form id="initialForm">
+        <label for="numValues">Cantidad de valores:</label>
+        <input type="number" id="numValues" min="1" required>
+        <button type="submit">Generar Tabla</button>
+    </form>
+
+    <div id="tableContainer"></div>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('initialForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const numValues = parseInt(document.getElementById('numValues').value);
+            generarTabla(numValues);
+        });
+
+        function generarTabla(numValues) {
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = ''; // Limpiar contenido anterior
+            const table = document.createElement('table');
+            const tbody = document.createElement('tbody');
+
+            const numCols = Math.ceil(Math.sqrt(numValues)); // Calcular el número de columnas
+            let currentValue = 0;
+
+            for (let i = 0; i < Math.ceil(numValues / numCols); i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < numCols; j++) {
+                    const cell = document.createElement('td');
+                    if (currentValue < numValues) {
+                        const value = Math.floor(Math.random() * 100); // Valor aleatorio entre 0 y 99
+                        cell.textContent = value;
+                        currentValue++;
+                    } else {
+                        cell.textContent = '';
+                    }
+                    row.appendChild(cell);
+                }
+                tbody.appendChild(row);
+            }
+
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+
+            // Crear botón para calcular la suma
+            const sumButton = document.createElement('button');
+            sumButton.textContent = 'Calcular Suma';
+            sumButton.addEventListener('click', calcularSuma);
+            tableContainer.appendChild(sumButton);
+        }
+
+        function calcularSuma() {
+            const table = document.querySelector('#tableContainer table');
+            const cells = table.getElementsByTagName('td');
+            let suma = 0;
+
+            for (let cell of cells) {
+                if (cell.textContent !== '') {
+                    suma += parseInt(cell.textContent);
+                }
+            }
+
+            const output = document.getElementById('output');
+            output.textContent = `La suma de todos los valores es: ${suma}`;
+        }
+    </script>
+</body>
+</html>
